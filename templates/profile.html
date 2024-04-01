@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link
+            rel="shortcut icon"
+            href="https://i.postimg.cc/XX6Z4ktQ/11-112202-wiki-eurovision-heart-eurovision-heart-png.png"
+            type="image/png"
+    >
+    <meta charset="UTF-8">
+    <title>{{username}}</title>
+</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+<style>
+    #myForm {
+  display: none;
+}
+</style>
+<style>
+    .error-message {
+      position: fixed;
+      left: 50%;
+      top: 6%;
+      transform: translate(-50%, -50%);
+      background: #8B0000;
+      color: #FFFFFF;
+      padding-left:10px;
+      padding-right:10px;
+      padding-bottom:10px;
+      padding-top:10px;
+      border-radius: 10px;
+      display: none;
+      font-size:25px;
+      font-family: Broadway;
+    }
+</style>
+<body>
+{%if access == '(False,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+                <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                     style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+{%if access == '(True,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+                <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                     style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block2">
+        <form action="/home">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; margin-left: 479px; border-width: 0;">
+                User Page
+            </button>
+        </form>
+    </div>
+    <div class="block3">
+        <form action="/admin">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; border-width: 0;">
+                Admin Page
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+<h1 style="text-align: center;">
+    <font color="#1E90FF" face="Broadway">
+        Feel free and safe in your profile
+    </font>
+</h1>
+<div id="error-message" class="error-message">{% if error %}{{ error }}{% endif %}</div>
+{% if error %}
+<script>
+    function showErrorMessage() {
+      var errorMessage = document.getElementById('error-message');
+      errorMessage.style.display = 'block';
+
+      setTimeout(function() {
+        errorMessage.style.display = 'none';
+      }, 1500);
+    }
+
+    showErrorMessage();
+</script>
+{% endif %}
+<button id="showFormBtn"
+        style="margin-left: 1300px; margin-bottom: 10px; width: 105px; background: linear-gradient(to left, #9932CC, #8A2BE2); color: #FFFFFF; font-family: 'Raleway', sans-serif; border-radius: 10px; margin-top: 10px;">
+    Edit profile
+</button>
+<div class="container1">
+    {% for curs in data %}
+    {% for i in range(5) %}
+    <p><font face="Broadway" color="#6495ED">{{keys[i]}}: {{curs[i]}}</font></p>
+    {% endfor %}
+    {% endfor %}
+</div>
+<div class="edit-profile">
+    <form id="myForm" method="post">
+        <div class="horizont-half">
+            <div class="vertical-half" style="width:50%; margin-left: 300px;">
+                <div class="horizont-half">
+                    <input type="text" name="username" placeholder="Username">
+                    <input type="number" name="age" placeholder="Age">
+                </div>
+                <div class="horizont-half">
+                    <select name="Zodiac Sign">
+                        <option value="">Zodiac Sign</option>
+                        <option value="Aries">Aries</option>
+                        <option value="Taurus">Taurus</option>
+                        <option value="Gemini">Gemini</option>
+                        <option value="Cancer">Cancer</option>
+                        <option value="Leo">Leo</option>
+                        <option value="Virgo">Virgo</option>
+                        <option value="Libra">Libra</option>
+                        <option value="Scorpio">Scorpio</option>
+                        <option value="Sagittarius">Sagittarius</option>
+                        <option value="Capricorn">Capricorn</option>
+                        <option value="Aquarius">Aquarius</option>
+                        <option value="Pisces">Pisces</option>
+                    </select>
+                    <select name="Gender">
+                        <option value="">Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="horizont-half">
+                    <select name="Country">
+                        <option value="">Country</option>
+                        <option value="Albania">Albania</option>
+                        <option value="Armenia">Armenia</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Austria">Austria</option>
+                        <option value="Azerbaijan">Azerbaijan</option>
+                        <option value="Belarus">Belarus</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                        <option value="Bulgaria">Bulgaria</option>
+                        <option value="Croatia">Croatia</option>
+                        <option value="Cyprus">Cyprus</option>
+                        <option value="Czech Republic">Czech Republic</option>
+                        <option value="Denmark">Denmark</option>
+                        <option value="Estonia">Estonia</option>
+                        <option value="Finland">Finland</option>
+                        <option value="France">France</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Greece">Greece</option>
+                        <option value="Hungary">Hungary</option>
+                        <option value="Iceland">Iceland</option>
+                        <option value="Ireland">Ireland</option>
+                        <option value="Israel">Israel</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Latvia">Latvia</option>
+                        <option value="Lithuania">Lithuania</option>
+                        <option value="Luxembourg">Luxembourg</option>
+                        <option value="North Macedonia">North Macedonia</option>
+                        <option value="Malta">Malta</option>
+                        <option value="Moldova">Moldova</option>
+                        <option value="Monaco">Monaco</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="Norway">Norway</option>
+                        <option value="Poland">Poland</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Romania">Romania</option>
+                        <option value="Russia">Russia</option>
+                        <option value="San Marino">San Marino</option>
+                        <option value="Serbia">Serbia</option>
+                        <option value="Slovakia">Slovakia</option>
+                        <option value="Slovenia">Slovenia</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="Turkey">Turkey</option>
+                        <option value="Ukraine">Ukraine</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="vertical-half" style="width:50%; text-align: right; margin-right: 400px;">
+                <input type="password" name="old_password" placeholder="Old password"
+                       style="margin-bottom:20px; margin-left: 63%;">
+                <input type="password" name="new_password" placeholder="New password"
+                       style="margin-bottom:20px; margin-left: 63%;">
+                <input type="password" name="confirm_password" placeholder="Confirm password"
+                       style="margin-bottom:20px; margin-left: 63%;">
+            </div>
+        </div>
+        <input type="submit" value="Save changes"
+               style="color: #FFFFFF; background: #0000CD; width: 765px; margin-left: 300px; border-color: #0000CD;">
+    </form>
+</div>
+<div class="tab-container">
+    <button id="defaultTab" class="tab" onclick="openTab(event, 'RankingsTab')">
+        <font color="#FFFFFF" face="Broadway">Your Rankings</font>
+    </button>
+    <button class="tab1" onclick="openTab(event, 'WinnersTab')">
+        <font color="#FFFFFF" face="Broadway">Your Winners</font>
+    </button>
+    <button class="tab2" onclick="openTab(event, 'FavCountryTab')">
+        <font color="#FFFFFF" face="Broadway">Your Top Of Countries</font>
+    </button>
+    <div id="RankingsTab" class="tab-content">
+        <h2 style="text-align: center; margin-bottom: 20px;">
+            <font color="#1E90FF" face="Broadway">
+                Your rankings
+            </font>
+        </h2>
+        {% if message %}
+        <h3 style="margin-bottom: 20px; text-align: center;"><font color="#1E90FF" face="Broadway">
+            {{message}}
+        </font></h3>
+        {% else %}
+        <div style="margin-left: 40px; margin-right: 40px; margin-bottom: 40px;">
+            {% for curs in rankings %}
+            <div class="container4">
+                {% for i in range(3) %}
+                <form action="/ranked_{{curs[0]}}">
+                    <button style="width: 370px;">{{curs[i]}}</button>
+                </form>
+                {% endfor %}
+                <form action="/delete_{{curs[0]}}_ranking">
+                    <button type="submit"
+                            style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4; width: 222px;">
+                        <img src="https://i.postimg.cc/sxtkybQ1/delete-button.png">
+                    </button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <div id="WinnersTab" class="tab-content">
+        <h2 style="text-align: center; margin-bottom: 20px;">
+            <font color="#1E90FF" face="Broadway">
+                Your winners
+            </font>
+        </h2>
+        {% if message %}
+        <h3 style="margin-bottom: 20px; text-align: center;"><font color="#1E90FF" face="Broadway">
+            {{message}}
+        </font></h3>
+        {% else %}
+        <div style="margin-left: 40px; margin-right: 40px; margin-bottom: 40px; width: 50%">
+            {% for curs in winners %}
+            <div class="container4">
+                {% for i in range(2) %}
+                <form action="/ranked_{{curs[0]}}">
+                    <button style="width: 250px;">{{curs[i]}}</button>
+                </form>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <div id="FavCountryTab" class="tab-content">
+        <h2 style="text-align: center; margin-bottom: 20px;">
+            <font color="#1E90FF" face="Broadway">
+                Your winners
+            </font>
+        </h2>
+        {% if message %}
+        <h3 style="margin-bottom: 20px; text-align: center;"><font color="#1E90FF" face="Broadway">
+            {{message}}
+        </font></h3>
+        {% else %}
+        <div style="margin-left: 40px; margin-right: 40px; margin-bottom: 40px; width: 50%">
+            {% for curs in fav_countries %}
+            <div class="container4">
+                {% for i in range(2) %}
+                <form action="/ranked_{{curs[0]}}">
+                    <button style="width: 250px;">{{curs[i]}}</button>
+                </form>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+<script>
+    function showForm() {
+
+      const form = document.getElementById('myForm');
+
+      form.style.display = 'block';
+
+    }
+        const btn = document.getElementById('showFormBtn');
+
+    btn.addEventListener('click', showForm);
+</script>
+<script type="text/javascript">
+    function openTab(evt, tabName) {
+      var i, tabContent, tabButton;
+      tabContent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+      }
+      tabButton = document.getElementsByClassName("tab");
+      for (i = 0; i < tabButton.length; i++) {
+        tabButton[i].className = tabButton[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    document.getElementById("defaultTab").click();
+</script>
+</body>
+</html>

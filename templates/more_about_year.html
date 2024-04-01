@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Read more about Eurovision {{year}}</title>
+</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+<body>
+{%if access == '(False,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+{%if access == '(True,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block2">
+        <form action="/home">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; margin-left: 479px; border-width: 0;">
+                User Page
+            </button>
+        </form>
+    </div>
+    <div class="block3">
+        <form action="/admin">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; border-width: 0;">
+                Admin Page
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+<h1 style="text-align: center;">
+    <font color="#1E90FF" face="Broadway">
+        About contest
+    </font>
+</h1>
+<div class="container1">
+    {% for i in range(9) %}
+    <p><font face="Broadway" color="#6495ED">{{keys[i]}}: {{current_cursor[i]}}</font></p>
+    {% endfor %}
+</div>
+<h2 style="text-align: center; margin-top: 30px;">
+    <font color="#1E90FF" face="Broadway">
+        Entries
+    </font>
+</h2>
+<div class="container2">
+    <table id="songs_details" style="">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0, 'songs_details')" style="width: 125px; background: #00BFFF; color: #FFFFFF;">
+                Country
+            </th>
+            <th onclick="sortTable(1, 'songs_details')" style="width: 150px; background: #00BFFF; color: #FFFFFF;">
+                Song
+            </th>
+            <th onclick="sortTable(2, 'songs_details')" style="width: 150px; background: #00BFFF; color: #FFFFFF;">
+                Artist
+            </th>
+            <th onclick="sortTable(3, 'songs_details')" style="width: 90px; background: #00BFFF; color: #FFFFFF;">
+                Songwriter
+            </th>
+            <th onclick="sortTable(4, 'songs_details')" style="width: 90px; background: #00BFFF; color: #FFFFFF;">
+                Author
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for curs in countries %}
+        <tr>
+            {% for i in range(1, 6) %}
+            <td>{{curs[i]}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<h2 style="text-align: center; margin-top: 30px;">
+    <font color="#1E90FF" face="Broadway">
+        Results
+    </font>
+</h2>
+<div class="container2">
+    <table id="details" style="margin-bottom: 30px;">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0, 'details')" style="width: 125px; background: #00BFFF; color: #FFFFFF;">Country
+            </th>
+            <th onclick="sortTable(1, 'details')" style="width: 150px; background: #00BFFF; color: #FFFFFF;">Song</th>
+            <th onclick="sortTable(2, 'details')" style="width: 150px; background: #00BFFF; color: #FFFFFF;">Artist</th>
+            <th onclick="sortTable(3, 'details')" style="width: 150px; background: #00BFFF; color: #FFFFFF;">
+                Broadcaster
+            </th>
+            <th onclick="sortTable(4, 'details')" style="width: 90px; background: #00BFFF; color: #FFFFFF;">Final
+                Place
+            </th>
+            <th onclick="sortTable(5, 'details')" style="width: 90px; background: #00BFFF; color: #FFFFFF;">Final
+                Points
+            </th>
+            <th onclick="sortTable(6, 'details')" style="width: 90px; background: #00BFFF; color: #FFFFFF;">Semi-Final
+                Place
+            </th>
+            <th onclick="sortTable(7, 'details')" style="width: 90px; background: #00BFFF; color: #FFFFFF;">Semi-Final
+                Points
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for curs in results %}
+        <tr>
+            {% for i in range(1, 9) %}
+            <td>{{curs[i]}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    function sortTable(columnIndex, tableID) {
+      let table, rows, switching, i, x, y, shouldSwitch, direction, switchcount = 0;
+      table = document.getElementById(tableID);
+      switching = true;
+      direction = "asc"; // Default sorting direction is ascending
+      while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName("td")[columnIndex];
+          y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+          if (direction == "asc") {
+            if (isNaN(x.innerHTML)) {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+              }
+            } else {
+              if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                shouldSwitch = true;
+                break;
+              }
+            }
+          } else if (direction == "desc") {
+            if (isNaN(x.innerHTML)) {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+              }
+            } else {
+              if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                shouldSwitch = true;
+                break;
+              }
+            }
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount ++;
+        } else {
+          if (switchcount == 0 && direction == "asc") {
+            direction = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Community rank of Eurovision {{year}}</title>
+</head>
+<link  rel ="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+<body>
+{%if access == '(False,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+{%if access == '(True,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block2">
+        <form action="/home">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; margin-left: 479px; border-width: 0;">
+                User Page
+            </button>
+        </form>
+    </div>
+    <div class="block3">
+        <form action="/admin">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; border-width: 0;">
+                Admin Page
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+<h1 style="text-align: center; margin-bottom: 20px;">
+    <font color = "#1E90FF" face="Broadway">
+        Community rank of Eurovision {{year}}
+    </font>
+</h1>
+{% if message %}
+<h2 style="margin-left: 20px; margin-bottom: 20px; text-align: center;">
+    <font color = "#1E90FF" face="Broadway">
+        {{message}}
+    </font>
+</h2>
+<div class="tenor-gif-embed" data-postid="27471384" data-share-method="host" data-aspect-ratio="1.77778" data-width="100%"><a href="https://tenor.com/view/k%C3%A4%C3%A4rij%C3%A4-eurovision-suomi-finland-umk-gif-27471384">Käärijä Eurovision GIF</a>from <a href="https://tenor.com/search/k%C3%A4%C3%A4rij%C3%A4-gifs">Käärijä GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+{% else %}
+{% if filter_message %}
+<h2 style="margin-left: 20px; margin-bottom: 20px; text-align: center;">
+    <font color = "#1E90FF" face="Broadway">
+        {{filter_message}}
+    </font>
+</h2>
+{% endif %}
+<div class="horizont-half">
+    <form method="post">
+        <div style="text-align: center; display: flex; justify-content: flex-start;
+                          align-content: center; flex-direction: row;">
+        <select name = "Country" style="margin-left: 250px;">
+            {% if country %}
+            <option value="{{country}}">{{country}}</option>
+            {% endif %}
+            <option value="">All countries</option>
+            <option value="Albania">Albania</option>
+            <option value="Armenia">Armenia</option>
+            <option value="Australia">Australia</option>
+            <option value="Austria">Austria</option>
+            <option value="Azerbaijan">Azerbaijan</option>
+            <option value="Belarus">Belarus</option>
+            <option value="Belgium">Belgium</option>
+            <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+            <option value="Bulgaria">Bulgaria</option>
+            <option value="Croatia">Croatia</option>
+            <option value="Cyprus">Cyprus</option>
+            <option value="Czech Republic">Czech Republic</option>
+            <option value="Denmark">Denmark</option>
+            <option value="Estonia">Estonia</option>
+            <option value="Finland">Finland</option>
+            <option value="France">France</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Germany">Germany</option>
+            <option value="Greece">Greece</option>
+            <option value="Hungary">Hungary</option>
+            <option value="Iceland">Iceland</option>
+            <option value="Ireland">Ireland</option>
+            <option value="Israel">Israel</option>
+            <option value="Italy">Italy</option>
+            <option value="Latvia">Latvia</option>
+            <option value="Lithuania">Lithuania</option>
+            <option value="Luxembourg">Luxembourg</option>
+            <option value="North Macedonia">North Macedonia</option>
+            <option value="Malta">Malta</option>
+            <option value="Moldova">Moldova</option>
+            <option value="Monaco">Monaco</option>
+            <option value="Netherlands">Netherlands</option>
+            <option value="Norway">Norway</option>
+            <option value="Poland">Poland</option>
+            <option value="Portugal">Portugal</option>
+            <option value="Romania">Romania</option>
+            <option value="Russia">Russia</option>
+            <option value="San Marino">San Marino</option>
+            <option value="Serbia">Serbia</option>
+            <option value="Slovakia">Slovakia</option>
+            <option value="Slovenia">Slovenia</option>
+            <option value="Spain">Spain</option>
+            <option value="Sweden">Sweden</option>
+            <option value="Switzerland">Switzerland</option>
+            <option value="Turkey">Turkey</option>
+            <option value="Ukraine">Ukraine</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Other">Other</option>
+        </select>
+        <select name = "Zodiac Sign" style="margin-left: 94px;">
+            {% if zodiac_sign %}
+            <option value="{{zodiac_sign}}">{{zodiac_sign}}</option>
+            {% endif %}
+            <option value="">All zodiacs</option>
+            <option value="Aries">Aries</option>
+            <option value="Taurus">Taurus</option>
+            <option value="Gemini">Gemini</option>
+            <option value="Cancer">Cancer</option>
+            <option value="Leo">Leo</option>
+            <option value="Virgo">Virgo</option>
+            <option value="Libra">Libra</option>
+            <option value="Scorpio">Scorpio</option>
+            <option value="Sagittarius">Sagittarius</option>
+            <option value="Capricorn">Capricorn</option>
+            <option value="Aquarius">Aquarius</option>
+            <option value="Pisces">Pisces</option>
+        </select>
+        <select name = "Gender" style="margin-left: 94px;">
+            {% if gender %}
+            <option value="{{gender}}">{{gender}}</option>
+            {% endif %}
+            <option value="">All genders</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <select name = "age" style="margin-left: 94px;">
+            {% if age %}
+            <option value="{{age}}">{{age}}</option>
+            {% endif %}
+            <option value="">All ages</option>
+            <option value="6-12">6-12</option>
+            <option value="13-17">13-17</option>
+            <option value="18-25">18-25</option>
+            <option value="26-35">26-35</option>
+            <option value="36-45">36-45</option>
+            <option value="46-55">46-55</option>
+            <option value="56-65">56-65</option>
+            <option value="66-75">66-75</option>
+            <option value="76-85">76-85</option>
+            <option value="Older">85+</option>
+        </select>
+        <button type="submit" style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4; margin-left: 92px;">
+             <img src="https://i.postimg.cc/5tP9Vt4t/search.png">
+        </button>
+        </div>
+    </form>
+</div>
+{% endif %}
+{% if N %}
+<h4 style="margin-left: 20px; margin-bottom: 20px; text-align: center;">
+    <font color = "#1E90FF" face="Broadway">
+        Total amount of rankings: {{N}}
+    </font>
+</h4>
+{% endif %}
+<div class="horizont-half">
+<div style="margin-left: 140px; margin-top: 10px; margin-bottom: 10px; width: 40%;">
+{% for curs in community_rank %}
+<div class="community-container">
+    <button style="text-align: center;">{{community_rank.index(curs) + 1}}</button>
+    {% for i in range (2) %}
+        <button style="text-align: center;">{{curs[i]}}</button>
+    {% endfor %}
+</div>
+{% endfor %}
+</div>
+<div style="margin-left: 20px; margin-right: 100px; margin-top: 10px; margin-bottom: 10px; width: 40%;">
+{% for curs in community_points_rank %}
+<div class="community-container">
+    <button style="text-align: center;">{{community_points_rank.index(curs) + 1}}</button>
+    {% for i in range (2) %}
+        <button style="text-align: center;">{{curs[i]}}</button>
+    {% endfor %}
+</div>
+{% endfor %}
+</div>
+    </div>
+<div style="margin-left: 190px; margin-bottom: 20px; display: flex;
+  justify-content: flex-start; align-content: center; flex-direction: row;">
+    <div class="stats-block" style="margin-right: 20px;">
+                <p style="color: #4169E1">Least divisive entry</p>
+                <p style="margin-top: 15px;">{{ least_divisive }}</p>
+    </div>
+    <div class="stats-block">
+                <p style="color: #4169E1">Most divisive entry</p>
+                <p style="margin-top: 15px;">{{ most_divisive }}</p>
+    </div>
+</div>
+</body>
+</html>

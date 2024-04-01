@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link
+            rel="shortcut icon"
+            href="https://i.postimg.cc/XX6Z4ktQ/11-112202-wiki-eurovision-heart-eurovision-heart-png.png"
+            type="image/png"
+    >
+    <title>Edit data about Eurovision {{year}}</title>
+    <style>
+        .error-message {
+          position: fixed;
+          left: 50%;
+          top: 6%;
+          transform: translate(-50%, -50%);
+          background: #8B0000;
+          color: #FFFFFF;
+          padding-left:10px;
+          padding-right:10px;
+          padding-bottom:10px;
+          padding-top:10px;
+          border-radius: 10px;
+          display: none;
+          font-size:25px;
+          font-family: Broadway;
+        }
+    </style>
+    <style>
+        .containerr {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+        }
+
+        .input-container {
+          display: flex;
+          align-items: center;
+        }
+
+        .input-container input[type="number"] {
+          margin-right: 10px;
+        }
+    </style>
+    <style>
+        .hidden {
+          display: none;
+        }
+        .input-group {
+          display: flex;
+          align-items: center;
+        }
+        .input-group input {
+          margin-right: 10px;
+        }
+    </style>
+    <script>
+        function toggleInputField(selectElement) {
+          var inputField = document.getElementById("MissingCountryInput");
+          var addButton = document.getElementById("addButton");
+          var options = selectElement.options;
+          for (var i = 0; i < options.length; i++) {
+            if (options[i].value === "Other" && options[i].selected) {
+              inputField.classList.remove("hidden");
+              addButton.classList.remove("hidden");
+              return;
+            }
+          }
+          inputField.classList.add("hidden");
+          addButton.classList.add("hidden");
+        }
+
+        function addInputField() {
+          var inputContainer = document.getElementById("inputContainer");
+
+          var inputGroup = document.createElement("div");
+          inputGroup.classList.add("input-group");
+
+          var inputField = document.createElement("input");
+          inputField.type = "text";
+          inputField.name = "MissingCountry";
+          inputField.placeholder = "Enter missing country";
+
+          var addButton = document.createElement("button");
+          addButton.type = "button";
+          addButton.textContent = "+";
+          addButton.onclick = addInputField;
+
+          inputGroup.appendChild(inputField);
+          inputGroup.appendChild(addButton);
+          inputGroup.appendChild(addFieldsButton);
+
+          inputContainer.appendChild(inputGroup);
+        }
+    </script>
+    <script>
+        // Get the select element
+        const select = document.getElementById('participating_countries');
+        // Add an event listener to the select element
+        select.addEventListener('change', function() {
+            // Get the selected option elements
+            const selectedOptions = Array.from(this.selectedOptions);
+            // Loop through the selected options
+            selectedOptions.forEach(function(option) {
+                // Get the corresponding checkbox element
+                const checkbox = document.querySelector(`input[type="checkbox"][value="${option.value}"]`);
+
+                // Check the checkbox if the option is selected
+                checkbox.checked = true;
+            });
+        });
+    </script>
+    <script>
+        function showErrorMessage() {
+          var errorMessage = document.getElementById('error-message');
+          errorMessage.style.display = 'block';
+
+          setTimeout(function() {
+            errorMessage.style.display = 'none';
+          }, 1500);
+        }
+
+        showErrorMessage();
+    </script>
+    <script>
+        function handleSelectChange(selectElement) {
+          var selectedOptions = Array.from(selectElement.selectedOptions).map(option => option.value);
+          var inputFieldsContainer = document.getElementById('inputFieldsContainer');
+          var inputFieldsContainer2 = document.getElementById('inputFieldsContainer2');
+
+          if (selectedOptions.includes('Other')) {
+            missingCountryInput.classList.remove('hidden');
+          }
+          createInputFields(selectedOptions.filter(option => option !== 'Other'));
+
+        }
+
+        function createInputFields(selectedOptions) {
+          var inputFieldsContainer = document.getElementById('inputFieldsContainer');
+          var inputFieldsContainer2 = document.getElementById('inputFieldsContainer2');
+          inputFieldsContainer.innerHTML = '';
+          inputFieldsContainer2.innerHTML = '';
+
+          selectedOptions.forEach(function(option) {
+            for (var i = 0; i < 5; i++) {
+              var inputField = document.createElement('input');
+              inputField.type = 'text';
+              inputField.name = 'additionalInput';
+
+              // Set placeholder and name based on index i
+              switch (i) {
+                case 0:
+                  inputField.name = option + 'artist';
+                  inputField.placeholder = option + ': artist';
+                  inputField.style = "margin-right: 10px;";
+                  break;
+                case 1:
+                  inputField.name = option + 'song';
+                  inputField.placeholder = option + ': song';
+                  inputField.style = "margin-right: 10px;";
+                  break;
+                case 2:
+                  inputField.name = option + 'songwriter';
+                  inputField.placeholder = option + ': songwriter';
+                  inputField.style = "margin-right: 10px;";
+                  break;
+                case 3:
+                  inputField.name = option + 'author';
+                  inputField.placeholder = option + ': author';
+                  inputField.style = "margin-right: 10px;";
+                  break;
+                case 4:
+                  inputField.name = option + 'broadcaster';
+                  inputField.placeholder = option + ': broadcaster';
+                  break;
+                default:
+                  break;
+              }
+
+              inputFieldsContainer.appendChild(inputField);
+            }
+          });
+
+          selectedOptions.forEach(function(option) {
+            for (var i = 0; i < 5; i++) {
+              var inputField = document.createElement('input');
+              inputField.type = 'text';
+              inputField.name = 'additionalInput';
+
+              // Set placeholder and name based on index i
+              switch (i) {
+          case 0:
+            inputField.name = option + "SF";
+            inputField.placeholder = option + ": semi-final";
+            inputField.style = "margin-right: 10px;";
+            break;
+          case 1:
+            inputField.name = option + "SFPlace";
+            inputField.placeholder = option + ": semi-final place";
+            inputField.style = "margin-right: 10px;";
+            break;
+          case 2:
+            inputField.name = option + "SFPoints";
+            inputField.placeholder = option + ": semi-final points";
+            inputField.style = "margin-right: 10px;";
+            break;
+          case 3:
+            inputField.name = option + "FPlace";
+            inputField.placeholder = option + ": final place";
+            inputField.style = "margin-right: 10px;";
+            break;
+          case 4:
+            inputField.name = option + "FPoints";
+            inputField.placeholder = option + ": final points ";
+            break;
+          default:
+            break;
+        }
+        inputFieldsContainer2.appendChild(inputField);
+            }
+          });
+        }
+    </script>
+    <script>
+        function showAddFieldsButton() {
+      var inputs = document.getElementsByName("MissingCountry");
+      var button = document.getElementById("addFieldsButton");
+      var hasValue = false;
+
+      for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].value.length > 0) {
+          hasValue = true;
+          break;
+        }
+      }
+
+      if (hasValue) {
+        button.classList.remove("hidden");
+      } else {
+        button.classList.add("hidden");
+      }
+    }
+
+    function addInputFields() {
+      var inputFieldsContainer = document.getElementById("inputFieldsContainer");
+      var inputFieldsContainer2 = document.getElementById("inputFieldsContainer2");
+      var inputs = document.getElementsByName("MissingCountry");
+      var inputValue = [];
+      for (var j = 0; j < inputs.length; j++) {
+        inputValue[j] = inputs[j].value;
+      }
+      for (var j = 0; j < inputs.length; j++) {
+      for (var i = 0; i < 5; i++) {
+        var newInput = document.createElement("input");
+        newInput.type = "text";
+        switch (i) {
+          case 0:
+            newInput.name = inputValue[j] + "artist";
+            newInput.placeholder = inputValue[j] + ": artist";
+            newInput.style = "margin-right: 10px;";
+            break;
+          case 1:
+            newInput.name = inputValue[j] + "song";
+            newInput.placeholder = inputValue[j] + ": song";
+            newInput.style = "margin-right: 10px;";
+            break;
+          case 2:
+            newInput.name = inputValue[j] + "songwriter";
+            newInput.placeholder = inputValue[j] + ": songwriter";
+            newInput.style = "margin-right: 10px;";
+            break;
+          case 3:
+            newInput.name = inputValue[j] + "author";
+            newInput.placeholder = inputValue[j] + ": author";
+            newInput.style = "margin-right: 10px;";
+            break;
+          case 4:
+            newInput.name = inputValue[j] + "broadcaster";
+            newInput.placeholder = inputValue[j] + ": broadcaster";
+            break;
+          default:
+            break;
+        }
+        inputFieldsContainer.appendChild(newInput);
+      }}
+
+      for (var j = 0; j < inputs.length; j++) {
+      for (var i = 0; i < 5; i++) {
+        var newInput = document.createElement("input");
+        newInput.type = "text";
+        switch (i) {
+          case 0:
+            newInput.name = inputValue[j] + "SF";
+            newInput.placeholder = inputValue[j] + ": semi-final";
+            newInput.style = "margin-right: 10px;";
+            break;
+          case 1:
+            newInput.name = inputValue[j] + "SFPlace";
+            newInput.placeholder = inputValue[j] + ": semi-final place";
+            newInput.style = "margin-right: 10px;";
+            break;
+          case 2:
+            newInput.name = inputValue[j] + "SFPoints";
+            newInput.placeholder = inputValue[j] + ": semi-final points";
+            newInput.style = "margin-right: 10px;";
+            break;
+          case 3:
+            newInput.name = inputValue[j] + "FPlace";
+            newInput.placeholder = inputValue[j] + ": final place";
+            newInput.style = "margin-right: 10px;";
+            break;
+          case 4:
+            newInput.name = inputValue[j] + "FPoints";
+            newInput.placeholder = inputValue[j] + ": final points ";
+            break;
+          default:
+            break;
+        }
+        inputFieldsContainer2.appendChild(newInput);
+      }}
+    }
+    </script>
+</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+<body>
+{%if access == '(False,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+{%if access == '(True,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block2">
+        <form action="/home">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; margin-left: 479px; border-width: 0;">
+                User Page
+            </button>
+        </form>
+    </div>
+    <div class="block3">
+        <form action="/admin">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; border-width: 0;">
+                Admin Page
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+<h1 style="text-align: center; margin-bottom: 10px;">
+    <font color="#1E90FF" face="Broadway">
+        Editing edition
+    </font>
+</h1>
+<form method="post">
+    <div class="horizont-half">
+        <div class="horizont-half" style="width: 50%;">
+            <div class="vertical-half" style="height: 100%;">
+                <h2 style="text-align: center; margin-bottom: 10px;">
+                    <font color="#1E90FF" face="Broadway">
+                        Main data
+                    </font>
+                </h2>
+                <div class="horizont-half" style="width: 50%">
+                    <input type="text" name="Venue" placeholder="Venue" style="margin-left: 200px; margin-right: 10px;">
+                    <input type="text" name="Slogan" placeholder="Slogan">
+                </div>
+                <div class="horizont-half" style="width: 50%">
+                    <input type="text" name="HostCity" placeholder="Host City"
+                           style="margin-left: 200px; margin-right: 10px;">
+                    <input type="text" name="HostCountry" placeholder="Host Country">
+                </div>
+                <div class="horizont-half" style="width: 50%">
+                    <input type="number" name="Number of participants" placeholder="Number of participants"
+                           style="margin-left: 200px; margin-right: 10px;">
+                    <input type="number" name="Number of participants in final"
+                           placeholder="Number of participants in final">
+                </div>
+                <div class="horizont-half" style="width: 50%">
+                    <input type="number" name="Number of participants in SF1"
+                           placeholder="Number of participants in SF1"
+                           style="margin-left: 200px; margin-right: 10px;">
+                    <input type="number" name="Number of participants in SF2"
+                           placeholder="Number of participants in SF2">
+                </div>
+                <div class="horizont-half" style="width: 50%; margin-left: 200px;">
+                    <select name="toRank">
+                        <option value="">Add for rankings as well?</option>
+                        <option value="1">Adding for ranking</option>
+                        <option value="0">Not adding for ranking</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="horizont-half" style="width: 50%;">
+            <div class="vertical-half" style="height: 100%;">
+                <h2 style="text-align: center; margin-bottom: 10px;">
+                    <font color="#1E90FF" face="Broadway">
+                        Participating countries
+                    </font>
+                </h2>
+
+                <div class="horizont-half" style="margin-bottom: 5px;">
+                    <div class="vertical-half" style="height: 100%">
+                        <small style="margin-left: 70px; margin-bottom: 3px;">
+                            <small>Press Ctrl to select multiple countries</small>
+                        </small>
+                        <select name="participating_countries[]" multiple style="height: 150px; margin-left: 70px;
+    width: 180px; padding: 2px;" onchange="toggleInputField(this); handleSelectChange(this)">
+                            {% for curs in current_cursor %}
+                            <option value="{{curs}}">
+                                {{curs}}
+                            </option>
+                            {% endfor %}
+                            <option value="Other" data-badge="">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="inputContainer" style="display: flex;
+          flex-direction: column;
+          align-items: flex-start;">
+        <div class="input-group">
+            <input type="text" name="MissingCountry" id="MissingCountryInput"
+                   class="hidden" placeholder="Enter missing country" onkeyup="showAddFieldsButton()">
+            <button type="button" onclick="addInputField()" id="addButton" class="hidden">+</button>
+            <button type="button" id="addFieldsButton" onclick="addInputFields(); this.disabled = true;" class="hidden">
+                Also add entry data
+            </button>
+        </div>
+    </div>
+    <h2 style="text-align: center; margin-bottom: 10px;">
+        <font color="#1E90FF" face="Broadway">
+            Entry details
+        </font>
+    </h2>
+    <div id="inputFieldsContainer" style="margin-left: 160px;"></div>
+    <h2 style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
+        <font color="#1E90FF" face="Broadway">
+            Result
+        </font>
+    </h2>
+    <div id="inputFieldsContainer2" style="margin-left: 160px;"></div>
+    <input style="margin-left: 630px; margin-top: 20px" type="submit" value="Update edition">
+
+</form>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link
+            rel="shortcut icon"
+            href="https://i.postimg.cc/XX6Z4ktQ/11-112202-wiki-eurovision-heart-eurovision-heart-png.png"
+            type="image/png"
+    >
+    <meta charset="UTF-8">
+    <title>Your Eurovision {{year}} ranking</title>
+</head>
+<link  rel ="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+<body>
+{%if access == '(False,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+{%if access == '(True,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block2">
+        <form action="/home">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; margin-left: 479px; border-width: 0;">
+                User Page
+            </button>
+        </form>
+    </div>
+    <div class="block3">
+        <form action="/admin">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; border-width: 0;">
+                Admin Page
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+<div class="horizont-half">
+<form action="/update_{{year}}_ranking">
+    <button style="margin-left: 40px; margin-bottom: 10px; width: 85px; background: linear-gradient(to left, #9932CC, #8A2BE2); color: #FFFFFF; font-family: 'Raleway', sans-serif; border-radius: 10px;">
+        Update ranking
+    </button>
+</form>
+    <form action="/community_rank_{{year}}">
+    <button style="margin-left: 1220px; margin-bottom: 10px; width: 85px; background: linear-gradient(to left, #9932CC, #8A2BE2); color: #FFFFFF; font-family: 'Raleway', sans-serif; border-radius: 10px;">
+        Community results
+    </button>
+</form>
+</div>
+<div class="ranking-left">
+{% for i in range(half) %}
+    <div class="ranking-container" style="margin-left:400px;"> <button style="width:30px; text-align:center;">{{i + 1}}</button><button style="text-align:center;">{{ranking[str(i + 1)]}}</button></div>
+{% endfor %}
+</div>
+<div class="ranking-right">
+    {% for i in range(half, len(ranking)) %}
+    <div class="ranking-container" style="margin-right:400px;"> <button style="width:30px; text-align:center;">{{i + 1}}</button><button style="text-align:center;">{{ranking[str(i + 1)]}}</button></div>
+    {% endfor %}
+</div>
+</body>
+</html>

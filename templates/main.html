@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link
+            rel="shortcut icon"
+            href="https://i.postimg.cc/XX6Z4ktQ/11-112202-wiki-eurovision-heart-eurovision-heart-png.png"
+            type="image/png"
+    >
+</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=Edge">
+    <title>Eurovision In Your Vision</title>
+</head>
+<body>
+<link METHODS="GET" rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+{%if access == '(False,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+{%if access == '(True,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block2">
+        <form action="/home">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; margin-left: 479px; border-width: 0;">
+                User Page
+            </button>
+        </form>
+    </div>
+    <div class="block3">
+        <form action="/admin">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; border-width: 0;">
+                Admin Page
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+
+<h1 style="margin-left: 20px; margin-bottom: 10px;">
+    <font color="#1E90FF" face="Broadway">
+        Let the Eurovision Song Contest begin!
+    </font>
+</h1>
+
+<div class="tab-container">
+    <button id="defaultTab" class="tab" onclick="openTab(event, 'DatabaseTab')">
+        <font color="#FFFFFF" face="Broadway">Learn More About Contest</font>
+    </button>
+    <button class="tab1" onclick="openTab(event, 'RankingsTab')">
+        <font color="#FFFFFF" face="Broadway">Create Your Own Ranking</font>
+    </button>
+
+    <div id="DatabaseTab" class="tab-content">
+        <h3 style="margin-bottom: 20px;"><font color="#1E90FF" face="Broadway">
+            Find out results and other data of different editions here
+        </font></h3>
+        {% if search %}
+        <h4 style="margin-bottom: 20px;"><font color="#1E90FF" face="Broadway">
+            Search result for: {{search}}
+        </font></h4>
+        {% endif %}
+        {% if search_message %}
+        <h4 style="margin-bottom: 20px;"><font color="#1E90FF" face="Broadway">
+            {{search_message}}
+        </font></h4>
+        {% endif %}
+        <div class="horizont-half">
+            <form method="post">
+                <div style="text-align: center; display: flex; justify-content: flex-start;
+                          align-content: center; flex-direction: row;">
+                    <input type="text" name="search" placeholder="Search" style="margin-right: 5px;">
+                    <button type="submit" style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+                        <img src="https://i.postimg.cc/5tP9Vt4t/search.png">
+                    </button>
+                    <select name="filter" style="width: 300px; margin-left: 5px;">
+                        <option value="Year">Year</option>
+                        <option value="Winner">Winning song, artist or country</option>
+                        <option value="Country">Country (years of participating)</option>
+                        <option value="Host">Host country, city, venue or slogan</option>
+                        <option value="Song">Song</option>
+                        <option value="Artist">Artist</option>
+                        <option value="Broadcaster">Broadcaster</option>
+                        <option value="Authors">Songwriter or author</option>
+                    </select>
+                </div>
+            </form>
+            {% if access == '(True,)' %}
+            <form action="/add_edition">
+                <button style="margin-left: 720px; padding: 2px; background: #1E90FF;
+          border-color: #0000CD; color: #FFFFFF; border-radius: 4px;">
+                    Add edition
+                </button>
+            </form>
+            {% endif %}
+        </div>
+        {% if search_message %}
+        {% else %}
+        <table style="text-align: center; margin-bottom: 20px;" id="editions">
+            <thead>
+            <tr>
+                <th style="width:50px; background: #00BFFF; color: #FFFFFF;">Year</th>
+                <th style="width:125px; background: #00BFFF; color: #FFFFFF;">Host City</th>
+                <th style="width:125px; background: #00BFFF; color: #FFFFFF;">Host Country</th>
+                <th style="width:200px; background: #00BFFF; color: #FFFFFF;">Venue</th>
+                <th style="width:150px; background: #00BFFF; color: #FFFFFF;">Slogan</th>
+                <th colspan="3" style="width:525px; background: #00BFFF; color: #FFFFFF;">Winner</th>
+                <th style="width:50px; background: #00BFFF; color: #FFFFFF;">Amount of participants</th>
+                <th colspan="2" style="width:75px;background: #00BFFF; color: #FFFFFF;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for curs in cursor %}
+            <tr>
+                {% for i in range(9) %}
+                <td>{{curs[i]}}</td>
+                {% endfor %}
+                <td style=" background: #E0FFFF; border: 1px solid #1E90FF;">
+                    <form action="/about_{{curs[0]}}">
+                        <button style=" background: rgba(0,0,0,0); border: 0px solid #7FFFD4;">
+                            Read More
+                        </button>
+                    </form>
+                </td>
+                {%if access == '(True,)'%}
+                <td style=" background: #E0FFFF; border: 1px solid #1E90FF;">
+                    <form action="/edit_{{curs[0]}}">
+                        <button style=" background: rgba(0,0,0,0); border: 0px solid #7FFFD4;">
+                            Edit
+                        </button>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+    <div id="RankingsTab" class="tab-content">
+        <h3 style="margin-bottom: 30px;"><font color="#1E90FF" face="Broadway">Choose the year to rank</font></h3>
+        {% if access == '(False,)' %}
+        {% for curs in cursor1 %}
+        <div class="container4">
+            {% for i in range(3) %}
+            <form action="/rank_{{curs[0]}}">
+                <button>{{curs[i]}}</button>
+            </form>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% if access == '(True,)' %}
+        {% for curs in cursor1 %}
+        <div class="container4">
+            {% for i in range(3) %}
+            <form action="/rank_{{curs[0]}}">
+                <button style="width: 350px;">{{curs[i]}}</button>
+            </form>
+            {% endfor %}
+            <form action="/delete_{{curs[0]}}_for_ranking">
+                <button type="submit" style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4; width: 282px;">
+                    <img src="https://i.postimg.cc/sxtkybQ1/delete-button.png">
+                </button>
+            </form>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+<script type="text/javascript">
+    function openTab(evt, tabName) {
+      var i, tabContent, tabButton;
+      tabContent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+      }
+      tabButton = document.getElementsByClassName("tab");
+      for (i = 0; i < tabButton.length; i++) {
+        tabButton[i].className = tabButton[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    document.getElementById("defaultTab").click();
+</script>
+</body>
+</html>

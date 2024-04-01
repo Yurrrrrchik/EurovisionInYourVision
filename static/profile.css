@@ -1,0 +1,47 @@
+.tab-container {
+  border: 0px solid #1E90FF;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.tab {
+  background-color: #1E90FF;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 7px 105px;
+  font-size: 16px;
+}
+
+.tab1 {
+  background-color: #1E90FF;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 7px 105px;
+  font-size: 16px;
+}
+
+.tab2 {
+  background-color: #1E90FF;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 7px 105px;
+  font-size: 16px;
+}
+
+.tab-content {
+  background-color: #FFFFFF;
+  display: none;
+  padding: 20px;
+}
+
+.tab-container h3,
+.tab-container p {
+  margin-top: 0;
+}
+
+.tab-container h3 {
+  font-size: 18px;
+}

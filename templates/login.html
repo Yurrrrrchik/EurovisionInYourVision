@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link
+            rel="shortcut icon"
+            href="https://i.postimg.cc/XX6Z4ktQ/11-112202-wiki-eurovision-heart-eurovision-heart-png.png"
+            type="image/png"
+    >
+</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=Edge">
+    <title>Welcome to Eurovision In Your Vision</title>
+    <style>
+    .error-message {
+      position: fixed;
+      top: 87%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #FFFFFF;
+      color: #191970;
+      padding-left:10px;
+      padding-right:10px;
+      padding-top:10px;
+      padding-bottom:10px;
+      border-radius: 10px;
+      display: none;
+      font-size:25px;
+      font-family: Broadway;
+    }
+  </style>
+</head>
+<body
+        style="background-image: url(https://i.postimg.cc/SKbNkmws/tryback13.png);
+        background-size: cover;"
+>
+<link METHODS="GET" rel ="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<div class ="container">
+    <div class ="block-left">
+<h1><font color = "#191970" face="Broadway">Enter into profile</font></h1>
+        <p><font color = "#4B0082" style="font-family: 'Raleway', sans-serif;">Enter username and password<br>
+    of your already existing account<br>and log in</font></p>
+        <form action="/registration">
+            <p><button style="width: 170px; color: #FFFFFF; background: #191970; text-align: center; border-radius: 6px;">
+                I don't have account</button></p>
+        </form>
+    </div>
+    <div class="block-right">
+    <form method="post" action="/">
+       <p><input type="text" name="username" placeholder="Username"></p>
+       <p><input type="password" name="password" placeholder="Password"></p>
+       <p><input type="submit" value="Enter"
+                 style="color: #FFFFFF; background: #0000CD; width: 226px; border-color: #0000CD;"></p>
+    </form>
+        <div id="error-message" class="error-message">{% if error_message %}{{ error_message }}{% endif %}</div>
+{% if error_message %}
+    <script>
+      function showErrorMessage() {
+        var errorMessage = document.getElementById('error-message');
+        errorMessage.style.display = 'block';
+
+        setTimeout(function() {
+          errorMessage.style.display = 'none';
+        }, 1500);
+      }
+
+      showErrorMessage();
+    </script>
+  {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+body {
+  background-image: url();
+}
+
+select {
+  width: 226px;
+  background: rgba(0,0,0,0);
+  border-radius: 5px;
+  border-color: #483D8B;
+  border-outline: #1E90FF;
+  border-width: 1px;
+  font-family: 'Raleway', sans-serif;
+  color: #D3D3D3;
+}
+
+input {
+  width: 220px;
+  background: rgba(0,0,0,0);
+  border-radius: 5px;
+  border-color: #00BFFF;
+  border-outline: #4169E1;
+  font-family: 'Raleway', sans-serif;
+  color: #D3D3D3;
+}
+
+input::placeholder {
+  color: #D3D3D3;
+}
+
+select option {
+  background: #1E90FF;
+}
+
+button {
+  font-family: 'Raleway', sans-serif;
+}
+
+.container {
+  background-color: #FFFFFF;
+  border: 1px solid #7FFFD4;
+  border-radius: 30px;
+  height: 330px;
+  margin-left: 295px;
+  margin-right: 295px;
+  margin-top: 240px;
+  text-align: center;
+}
+
+.block-left {
+  background: linear-gradient(to left, #4169E1, #00BFFF);
+  border-radius: 30px 0 0 30px;
+  width:50%;
+  height: 330px;
+  overflow:auto;
+  float:left;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.block-right {
+  background: linear-gradient(to left, #00BFFF, #4169E1);
+  border-radius: 0 30px 30px 0;
+  width:50%;
+  height: 330px;
+  overflow:auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}

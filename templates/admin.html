@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eurovision In Your Vision</title>
+</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+<body>
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block2">
+        <form action="/home">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; margin-left: 479px; border-width: 0;">
+                User Page
+            </button>
+        </form>
+    </div>
+    <div class="block3">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; border-width: 0;">
+                Admin Page
+            </button>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+<h1 style="text-align: center; margin-bottom: 20px;">
+    <font color="#1E90FF" face="Broadway">
+        Enjoy your admin rights!
+    </font>
+</h1>
+<div class="stats-container">
+    <div class="vertical-half">
+        <div class="horizont-half">
+            <div class="stats-block">
+                <p style="color: #4169E1">Total amount</p>
+                <p style="color: #4169E1">of users</p>
+                <p style="margin-top: 15px;">{{ N_users }}</p>
+            </div>
+            <div class="stats-block">
+                <p style="color: #4169E1">Total amount</p>
+                <p style="color: #4169E1">of admins</p>
+                <p style="margin-top: 15px;">{{ N_admins }}</p>
+            </div>
+            <div class="stats-block">
+                <p style="color: #4169E1">Total amount</p>
+                <p style="color: #4169E1">of rankings</p>
+                <p style="margin-top: 15px;">{{ N_rankings }}</p>
+            </div>
+            <div class="stats-block">
+                <p style="margin-bottom: 15px; color: #4169E1">Most active user</p>
+                <p>{{ active_user[0] }}</p>
+                <p>{{ active_user[1] }} rankings</p>
+            </div>
+        </div>
+        <img src="{{ url_for('static', filename='users_countries.png') }}" alt="Users Countries Graph">
+    </div>
+    <div class="horizont-half">
+        <div class="vertical-half">
+            <table style="text-align: center; margin-bottom: 20px; margin-left: 10px;" id="users">
+                <thead>
+                <tr>
+                    <th onclick="sortTable(0)" style="width: 120px; background: #1E90FF; color: #FFFFFF;">Login</th>
+                    <th onclick="sortTable(1)" style="width: 109px; background: #1E90FF; color: #FFFFFF;">Zodiac Sign</th>
+                    <th onclick="sortTable(2)" style="width: 70px; background: #1E90FF; color: #FFFFFF;">Gender</th>
+                    <th onclick="sortTable(3)" style="width: 120px; background: #1E90FF; color: #FFFFFF;">Country</th>
+                    <th onclick="sortTable(4)" style="width: 70px; background: #1E90FF; color: #FFFFFF;">Age</th>
+                    <th onclick="sortTable(5)" style="width: 68px; background: #1E90FF; color: #FFFFFF;">Access</th>
+                    <th style="width: 155px; background: #4169E1; color: #FFFFFF;">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for curs in cursor %}
+                <tr>
+                    {% for i in range(6) %}
+                    <td>{{curs[i]}}</td>
+                    {% endfor %}
+                    <td style="background: #87CEFA">
+                        {% if user != curs[0] %}
+                        <form method="post" action="/{{curs[0]}}">
+                            <button
+                                    name="action" id="action"
+                                    type="submit" onclick="sendData()"
+                                    style="background: rgba(0,0,0,0); border: 0px solid #7FFFD4;
+                        font-family: 'Raleway', sans-serif;">
+                                {% if curs[5] == 1 %}
+                                Take away admin rights
+                                {% endif%}
+                                {% if curs[5] == 0 %}
+                                Give admin rights
+                                {% endif%}
+                            </button>
+                        </form>
+                        {% else %}
+                        That's you
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <form method="post">
+                <button style="float: right; border-radius: 5px; padding: 2px; background: #1E90FF;
+          border-color: #0000CD; color: #FFFFFF;">
+                    Save in Excel
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function sortTable(columnIndex) {
+  let table, rows, switching, i, x, y, shouldSwitch, direction, switchcount = 0;
+  table = document.getElementById("users");
+  switching = true;
+  direction = "asc"; // Default sorting direction is ascending
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("td")[columnIndex];
+      y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+      if (direction == "asc") {
+        if (isNaN(x.innerHTML)) {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        } else {
+          if (Number(x.innerHTML) > Number(y.innerHTML)) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+      } else if (direction == "desc") {
+        if (isNaN(x.innerHTML)) {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        } else {
+          if (Number(x.innerHTML) < Number(y.innerHTML)) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      switchcount ++;
+    } else {
+      if (switchcount == 0 && direction == "asc") {
+        direction = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+</script>
+
+</body>

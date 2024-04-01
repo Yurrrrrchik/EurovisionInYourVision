@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eurovision In Your Vision</title>
+</head>
+<link  rel ="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+<body>
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+             style="width: 184px; height: 75px; margin-top: 3px;">
+        </form>
+    </div>
+    <div class="block2">
+        <form action="/home">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; margin-left: 479px; border-width: 0;">
+                User Page
+            </button>
+        </form>
+    </div>
+    <div class="block3">
+        <form action="/select">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; border-width: 0;">
+                Admin Page
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+<table style="text-align: center;" id="users">
+  <thead>
+    <tr>
+      <th onclick="sortTable(0)" style="width: 125px; background: #00BFFF; color: #FFFFFF;">Login</th>
+      <th onclick="sortTable(1)" style="width: 100px; background: #00BFFF; color: #FFFFFF;">Password</th>
+      <th onclick="sortTable(2)" style="width: 100px; background: #00BFFF; color: #FFFFFF;">Zodiac Sign</th>
+      <th onclick="sortTable(3)" style="width: 70px; background: #00BFFF; color: #FFFFFF;">Gender</th>
+      <th onclick="sortTable(4)" style="width: 120px; background: #00BFFF; color: #FFFFFF;">Country</th>
+      <th onclick="sortTable(5)" style="width: 70px; background: #00BFFF; color: #FFFFFF;">Age</th>
+      <th onclick="sortTable(6)" style="width: 70px; background: #00BFFF; color: #FFFFFF;">Access</th>
+      <th style="width: 150px; background: #1E90FF; color: #FFFFFF;">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for curs in cursor %}
+        <tr>
+        {% for i in range(1, 8) %}
+            <td>{{curs[i]}}</td>
+        {% endfor %}
+            <td>
+                <form method="post" action="/{{curs[1]}}">
+                <button
+                        name="action" id="action"
+                        type="submit" onclick="sendData()"
+                        style="background: rgba(0,0,0,0); border: 0px solid #7FFFD4;">
+                    {% if curs[7] == 1 %}
+                        Take away admin rights
+                    {% endif%}
+                    {% if curs[7] == 0 %}
+                        Give admin rights
+                    {% endif%}
+                </button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<script>
+    function sortTable(columnIndex) {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("users");
+    switching = true;
+    var ascending = true; // Track sorting order
+
+    while (switching) {
+        switching = false;
+        rows = table.getElementsByTagName("tr");
+
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("td")[columnIndex];
+            y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+
+            var xValue = x.innerHTML.trim();
+            var yValue = y.innerHTML.trim();
+
+            // Check if values are numeric
+            var xIsNumeric = !isNaN(xValue);
+            var yIsNumeric = !isNaN(yValue);
+
+            if (xIsNumeric && yIsNumeric) {
+                // Compare as numbers
+                var xNum = parseFloat(xValue);
+                var yNum = parseFloat(yValue);
+
+                if (ascending ? (xNum > yNum) : (xNum < yNum)) {
+                    shouldSwitch = true;
+                    break;
+                }
+            } else {
+                // Compare as strings
+                if (ascending ? (xValue.toLowerCase() > yValue.toLowerCase()) : (xValue.toLowerCase() < yValue.toLowerCase())) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+
+        // Toggle sorting order after each iteration
+        if (!switching && ascending) {
+            ascending = false;
+            switching = true;
+        }
+    }
+}
+</script>
+</body>
+</html>

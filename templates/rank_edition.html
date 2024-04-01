@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link
+            rel="shortcut icon"
+            href="https://i.postimg.cc/XX6Z4ktQ/11-112202-wiki-eurovision-heart-eurovision-heart-png.png"
+            type="image/png"
+    >
+    <meta charset="UTF-8">
+    <title>Rank Eurovision {{year}}</title>
+    <script>
+    function updateSelects(selectedValue, selectId) {
+  var selects = document.getElementsByTagName("select");
+  var selectedOptions = new Set();
+  for (var i = 0; i < selects.length; i++) {
+    if (selects[i].value !== "") {
+      selectedOptions.add(selects[i].value);
+    }
+  }
+  for (var i = 0; i < selects.length; i++) {
+    var options = selects[i].getElementsByTagName("option");
+    for (var j = 0; j < options.length; j++) {
+      if (selectedOptions.has(options[j].value)) {
+        options[j].style.display = "none";
+      } else {
+        options[j].style.display = "block";
+      }
+    }
+  }
+}
+  </script>
+     <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script>
+  document.addEventListener('change', () => {
+
+  const selects = document.querySelectorAll('select');
+  const submitButton = document.querySelector('input[type="submit"]');
+
+  let values = [];
+  let anyEmpty = false;
+
+  selects.forEach(select => {
+
+    if(select.value === '') {
+      anyEmpty = true;
+    }
+
+    values.push(select.value);
+
+  });
+
+  let duplicates = values.some((value, index) => {
+    return values.indexOf(value) != index;
+  });
+
+  if(anyEmpty || duplicates) {
+    submitButton.style.display = 'none';
+  } else {
+    submitButton.style.display = 'block';
+  }
+
+});
+  </script>
+</head>
+<link  rel ="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+<body>
+{%if access == '(False,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+{%if access == '(True,)'%}
+<div class="container">
+    <div class="block1">
+        <form action="/home">
+            <button style="background: rgba(0, 0, 0, 0); border: 0px solid #7FFFD4;">
+            <img src="https://i.postimg.cc/4yJWgTxh/in-your-vision-1-transformed-pixian-ai-CUT.png"
+                 style="width: 184px; height: 75px; margin-top: 3px;">
+            </button>
+        </form>
+    </div>
+    <div class="block2">
+        <form action="/home">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; margin-left: 479px; border-width: 0;">
+                User Page
+            </button>
+        </form>
+    </div>
+    <div class="block3">
+        <form action="/admin">
+            <button style="width: 80px; color: #FFFFFF; background: rgba(0,0,0,0);
+            border-radius: 6px; border-width: 0;">
+                Admin Page
+            </button>
+        </form>
+    </div>
+    <div class="block4">
+        <form action="/my_profile">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                My Profile
+            </button>
+        </form>
+        <form action="/logout">
+            <button style="width: 80px; color: #FFFFFF; background:  #0000CD; text-align: center;
+            border-radius: 10px; margin-left: 373px; border-color: #00BFFF;">
+                Log Out
+            </button>
+        </form>
+    </div>
+</div>
+{%endif%}
+<div class="horizont-half">
+    <h2 style="margin-bottom: 10px; margin-left: 20px;">
+    <font color = "#1E90FF" face="Broadway">
+        Rank {{year}}
+    </font>
+    </h2>
+    <form action="/community_rank_{{year}}">
+    <button style="margin-left: 1220px; margin-bottom: 10px; width: 85px; background: linear-gradient(to left, #9932CC, #8A2BE2); color: #FFFFFF; font-family: 'Raleway', sans-serif; border-radius: 10px;">
+        Community results
+    </button>
+</form>
+</div>
+
+    <div class="horizont-half">
+    <div class="horizont-half" style="width: 50%">
+        <form method="post">
+    {% if ranking %}
+    <div class="ranking-left">
+    {% for j in range(half) %}
+    <p><select name="{{j}}" id="{{j}}" onchange="updateSelects(this.value, '{{j}}')" style="margin-left: 70px; width: 270px; margin-bottom: 5px;">
+        <option value="">Who's #{{j+1}}?</option>
+        <option value="{{ranking[str(j + 1)]}}" selected>{{ranking[str(j + 1)]}}</option>
+        {% for i in range(number_of_participants) %}
+        {% if ranking[str(i+1)] != ranking[str(j + 1)] %}
+        <option value="{{ranking[str(i+1)]}}">
+            {{ranking[str(i+1)]}}
+        </option>
+        {% endif %}
+        {% endfor %}
+    </select></p>
+    {% endfor %}
+    </div>
+    <div class="ranking-right">
+    {% for k in range(half, number_of_participants) %}
+    <p><select name="{{k}}" id="{{k}}" onchange="updateSelects(this.value, '{{k}}')" style="margin-left: 55px; width: 270px; margin-bottom:5px;">
+        <option value="">Who's #{{k+1}}?</option>
+        <option value="{{ranking[str(k + 1)]}}" selected>{{ranking[str(k + 1)]}}</option>
+        {% for i in range(number_of_participants) %}
+        {% if ranking[str(i+1)] != ranking[str(k + 1)] %}
+        <option value="{{ranking[str(i+1)]}}">
+            {{ranking[str(i+1)]}}
+        </option>
+        {% endif %}
+        {% endfor %}
+    </select></p>
+    {% endfor %}
+    </div>
+    {% else %}
+    <div class="ranking-left">
+    {% for i in range(half) %}
+    <p><select name="{{i}}" id="{{i}}" onchange="updateSelects(this.value, '{{i}}')" style="margin-left: 70px; width: 270px; margin-bottom:5px;">
+        <option value="">Who's #{{i+1}}?</option>
+        {% for curs in current_cursor %}
+        <option value="{{curs}}">
+            {{curs}}
+        </option>
+        {% endfor %}
+    </select></p>
+        {% endfor %}
+        </div>
+    <div class="ranking-right">
+        {% for n in range(half, number_of_participants) %}
+    <p><select name="{{n}}" id="{{n}}" onchange="updateSelects(this.value, '{{n}}')" style="margin-left: 55px; width: 270px; margin-bottom:5px;">
+        <option value="">Who's #{{n+1}}?</option>
+        {% for curs in current_cursor %}
+        <option value="{{curs}}">
+            {{curs}}
+        </option>
+        {% endfor %}
+    </select></p>
+        {% endfor %}
+    </div>
+    {% endif%}
+        <p><input type="submit" value="Create ranking"
+               style="color: #FFFFFF; background: #0000CD; margin-left: 70px; margin-top: 100px;
+               width: 270px; border-color: #0000CD; display: none"></p>
+</form>
+    </div>
+    <div class="horizont-half" style="width: 50%; margin-left: 200px;">
+    <table id="details" style="margin-bottom: 30px;">
+  <thead>
+    <tr>
+      <th onclick="sortTable(0)" style="width: 125px; background: #00BFFF; color: #FFFFFF;">Country</th>
+      <th onclick="sortTable(1)" style="width: 150px; background: #00BFFF; color: #FFFFFF;">Song</th>
+      <th onclick="sortTable(2)" style="width: 150px; background: #00BFFF; color: #FFFFFF;">Artist</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for curs in results %}
+        <tr>
+            {% for i in range(1, 4) %}
+            <td>{{curs[i]}}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    </div>
+    </div>
+</body>
+</html>
